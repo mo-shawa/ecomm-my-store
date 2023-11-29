@@ -1,15 +1,22 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { setProducts } from '@/store/products-slice'
-import { useEffect, useState } from 'react'
-import Product from '@/components/product'
-import { motion } from 'framer-motion'
-import { productContainerVariants } from '@/utils/framer'
-import ProductModal from '@/components/product-modal'
+import { useState, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import ProductModal from '@/components/product/product-modal'
+import ProductList from '@/components/product/product-list'
+import SkeletonList from '@/components/loader'
 
 export default function Home() {
   const products = useAppSelector((state) => state.products)
   const dispatch = useAppDispatch()
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const selectedProduct = useAppSelector((state) => state.selectedProduct)
+
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    // set ready after 3 seconds
+    setTimeout(() => setReady(true), 3000)
+  })
 
   useEffect(() => {
     async function fetchProducts() {
@@ -21,28 +28,29 @@ export default function Home() {
   }, [])
 
   return (
-    <main className='bg-zinc-100 min-h-screen relative'>
-      <h1 className=''>Welcome to My Store</h1>
-      {products.length && (
-        <motion.div
-          initial='initial'
-          animate='animate'
-          variants={productContainerVariants}
-          className='flex gap-6 flex-wrap justify-center'
-        >
-          {products.map((product) => (
-            <Product
-              setSelected={setSelectedProduct}
-              key={product.id}
-              product={product}
-            />
-          ))}
-        </motion.div>
-      )}
-      <ProductModal
-        selected={selectedProduct}
-        setSelected={setSelectedProduct}
-      />
+    <main className='py-8 px-4 w-full max-w-7xl mx-auto flex flex-col '>
+      <h1 className='text-6xl tracking-tighter'>Welcome to My Store</h1>
+      <small className='font-light tracking-wide font-mono ml-2 text-slate-500'>
+        I am not a copywriter
+      </small>
+      <p className='tracking-wide text-slate-700 ml-2 mt-5'>
+        We sell backpacks, shirts, bracelets, and... gaming monitors?
+      </p>
+
+      <AnimatePresence
+        initial={false}
+        mode='wait'
+      >
+        {ready ? (
+          <ProductList
+            key='product-list'
+            products={products}
+          />
+        ) : (
+          <SkeletonList key='skeleton-list' />
+        )}
+      </AnimatePresence>
+      <ProductModal selected={selectedProduct} />
     </main>
   )
 }

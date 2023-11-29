@@ -1,10 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
 type CartItem = {
   quantity: number
 } & Product
 
-const initialState: CartItem[] = []
+const loadInitialState = () => {
+  try {
+    const serializedState = localStorage.getItem('cart')
+    if (serializedState === null) {
+      return []
+    }
+    return JSON.parse(serializedState)
+  } catch (err) {
+    return []
+  }
+}
+
+const saveState = (state: CartItem[]) => {
+  try {
+    const serializedState = JSON.stringify(state)
+    localStorage.setItem('cart', serializedState)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const initialState: CartItem[] = loadInitialState()
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -18,6 +38,8 @@ const cartSlice = createSlice({
       foundItem
         ? foundItem.quantity++
         : state.push({ ...action.payload, quantity: 1 })
+
+      saveState(state)
     },
     removeFromCart: (state, action: PayloadAction<CartItem>) => {
       const foundItem = state.find((item) => item.id === action.payload.id)
@@ -32,6 +54,8 @@ const cartSlice = createSlice({
       if (foundItem.quantity > 1) {
         foundItem.quantity--
       }
+
+      saveState(state)
     },
   },
 })
