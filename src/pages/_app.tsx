@@ -6,6 +6,7 @@ import Navbar from '@/components/layout/navbar'
 import { AnimatePresence, motion, useScroll } from 'framer-motion'
 import { pageTransitionVariants } from '@/utils/framer'
 import { useRouter } from 'next/router'
+import { Toaster } from 'react-hot-toast'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -35,6 +36,11 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </motion.div>
       </AnimatePresence>
+      <Toaster
+        position='bottom-center'
+        reverseOrder={false}
+        toastOptions={{}}
+      />
     </Provider>
   )
 }

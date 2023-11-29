@@ -2,6 +2,7 @@ import { useAppDispatch } from '@/hooks/redux'
 import { addOneToCart } from '@/store/cart-slice'
 import { ease } from '@/utils/framer'
 import { motion } from 'framer-motion'
+import toast from 'react-hot-toast'
 
 type Props = {
   product: Product
@@ -13,6 +14,7 @@ export default function AddToCartButton({ product }: Props) {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
     dispatch(addOneToCart(product))
+    toast.success(`Added ${product.title} to your cart!`)
   }
 
   return (
