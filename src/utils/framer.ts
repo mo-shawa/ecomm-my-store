@@ -24,13 +24,9 @@ export const productCardVariants: AnimationProps['variants'] = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: (i: number) => ({
-      delay: i * 0.1,
-      ease,
-    }),
-  },
-
-  whileHover: {
-    scale: 1.01,
+    // transition: (i: number) => ({
+    //   delay: i * 0.1,
+    //   ease,
+    // }),
   },
 }

@@ -13,7 +13,9 @@ export default function Cart() {
           <h2>{product.title}</h2>
           <p>{product.description}</p>
           <p>{product.price}</p>
-          <button onClick={() => dispatch(removeFromCart(product))}>Remove from Cart</button>
+          <button onClick={() => dispatch(removeFromCart(product))}>
+            Remove from Cart
+          </button>
         </div>
       ))}
     </main>

@@ -24,13 +24,25 @@ export default function Home() {
     <main className='bg-zinc-100 min-h-screen relative'>
       <h1 className=''>Welcome to My Store</h1>
       {products.length && (
-        <motion.div initial='initial' animate='animate' whileHover='whileHover' variants={productContainerVariants} className='flex gap-6 flex-wrap justify-center'>
+        <motion.div
+          initial='initial'
+          animate='animate'
+          variants={productContainerVariants}
+          className='flex gap-6 flex-wrap justify-center'
+        >
           {products.map((product) => (
-            <Product setSelected={setSelectedProduct} key={product.id} product={product} />
+            <Product
+              setSelected={setSelectedProduct}
+              key={product.id}
+              product={product}
+            />
           ))}
         </motion.div>
       )}
-      <ProductModal selected={selectedProduct} setSelected={setSelectedProduct} />
+      <ProductModal
+        selected={selectedProduct}
+        setSelected={setSelectedProduct}
+      />
     </main>
   )
 }
