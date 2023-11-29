@@ -111,3 +111,26 @@ export const ratingChildVariants: AnimationProps['variants'] = {
     },
   },
 }
+
+export const cartItemVariants: AnimationProps['variants'] = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      ease,
+    },
+  },
+
+  exit: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      ease,
+    },
+  },
+}

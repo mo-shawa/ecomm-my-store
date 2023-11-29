@@ -10,3 +10,7 @@ type Product = {
     count: number
   }
 }
+
+type CartItem = {
+  quantity: number
+} & Product

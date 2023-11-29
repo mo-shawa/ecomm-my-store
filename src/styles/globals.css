@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+  @apply text-3xl md:text-6xl tracking-tighter leading-tight;
+}
+h3 {
+  @apply text-lg font-semibold;
+}
+
+p {
+  @apply tracking-wide text-slate-700;
+}
+
+::selection {
+  @apply bg-slate-700 text-slate-200;
+}

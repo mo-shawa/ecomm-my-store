@@ -129,9 +129,9 @@ export default function ProductModal({ selected }: Props) {
               duration: 0.8,
             }}
           >
-            {selected.price.toLocaleString('en-us', {
+            {selected.price.toLocaleString('en-ca', {
               style: 'currency',
-              currency: 'USD',
+              currency: 'CAD',
             })}
           </motion.p>
           <AddToCartButton product={selected} />

@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/hooks/redux'
-import { addToCart } from '@/store/cart-slice'
+import { addOneToCart } from '@/store/cart-slice'
 import { ease } from '@/utils/framer'
 import { motion } from 'framer-motion'
 
@@ -12,7 +12,7 @@ export default function AddToCartButton({ product }: Props) {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
-    dispatch(addToCart(product))
+    dispatch(addOneToCart(product))
   }
 
   return (

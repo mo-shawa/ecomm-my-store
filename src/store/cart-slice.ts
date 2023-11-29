@@ -1,7 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-type CartItem = {
-  quantity: number
-} & Product
 
 const loadInitialState = () => {
   try {
@@ -20,7 +17,7 @@ const saveState = (state: CartItem[]) => {
     const serializedState = JSON.stringify(state)
     localStorage.setItem('cart', serializedState)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -30,9 +27,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Product>) => {
-      console.log('action', action)
-
+    addOneToCart: (state, action: PayloadAction<Product>) => {
       const foundItem = state.find((item) => item.id === action.payload.id)
 
       foundItem
@@ -41,7 +36,21 @@ const cartSlice = createSlice({
 
       saveState(state)
     },
-    removeFromCart: (state, action: PayloadAction<CartItem>) => {
+
+    setAmountOfItemInCart: (
+      state,
+      action: PayloadAction<{ id: number; amount: number }>
+    ) => {
+      const foundItem = state.find((item) => item.id === action.payload.id)
+
+      if (!foundItem) return
+
+      foundItem.quantity = action.payload.amount
+
+      saveState(state)
+    },
+
+    removeOneFromCart: (state, action: PayloadAction<CartItem>) => {
       const foundItem = state.find((item) => item.id === action.payload.id)
 
       if (!foundItem) return
@@ -57,9 +66,23 @@ const cartSlice = createSlice({
 
       saveState(state)
     },
+    removeAllOfItemFromCart: (state, action: PayloadAction<CartItem>) => {
+      const index = state.findIndex((item) => item.id === action.payload.id)
+      state.splice(index, 1)
+      saveState(state)
+    },
+    emptyCart: () => {
+      localStorage.removeItem('cart')
+      return []
+    },
   },
 })
 
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const {
+  addOneToCart,
+  removeOneFromCart,
+  removeAllOfItemFromCart,
+  emptyCart,
+} = cartSlice.actions
 
 export default cartSlice.reducer

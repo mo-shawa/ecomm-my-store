@@ -60,9 +60,9 @@ export default function Product({ product }: Props) {
             duration: 0.8,
           }}
         >
-          {product.price.toLocaleString('en-us', {
+          {product.price.toLocaleString('en-ca', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'CAD',
           })}
         </motion.p>
         <AddToCartButton product={product} />
