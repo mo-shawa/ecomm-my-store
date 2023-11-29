@@ -1,35 +1,36 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { setProducts } from '@/store/products-slice'
-import { useEffect } from 'react'
-
-const inter = Inter({ subsets: ['latin'] })
+import { useEffect, useState } from 'react'
+import Product from '@/components/product'
+import { motion } from 'framer-motion'
+import { productContainerVariants } from '@/utils/framer'
+import ProductModal from '@/components/product-modal'
 
 export default function Home() {
   const products = useAppSelector((state) => state.products)
   const dispatch = useAppDispatch()
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
   useEffect(() => {
     async function fetchProducts() {
       const response = await fetch('https://fakestoreapi.com/products')
-      const products = await response.json()
-      dispatch(setProducts(products))
+      const data = await response.json()
+      dispatch(setProducts(data))
     }
     fetchProducts()
   }, [])
 
   return (
-    <main>
-      <h1>Welcome to My Store</h1>
-      {products.map((product) => (
-        <div key={product.id}>
-          <Image src={product.image} alt={product.title} width={200} height={200} />
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p>{product.price}</p>
-        </div>
-      ))}
+    <main className='bg-zinc-100 min-h-screen relative'>
+      <h1 className=''>Welcome to My Store</h1>
+      {products.length && (
+        <motion.div initial='initial' animate='animate' whileHover='whileHover' variants={productContainerVariants} className='flex gap-6 flex-wrap justify-center'>
+          {products.map((product) => (
+            <Product setSelected={setSelectedProduct} key={product.id} product={product} />
+          ))}
+        </motion.div>
+      )}
+      <ProductModal selected={selectedProduct} setSelected={setSelectedProduct} />
     </main>
   )
 }
