@@ -82,6 +82,22 @@ export const productCardVariants: AnimationProps['variants'] = {
   },
 }
 
+export const productDescriptionVariants: AnimationProps['variants'] = {
+  initial: {
+    opacity: 0,
+    y: 15,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      delay: 0.5,
+      ease: ease,
+    },
+  },
+}
+
 export const ratingContainerVariants: AnimationProps['variants'] = {
   initial: {
     opacity: 0,
@@ -128,7 +144,7 @@ export const cartItemVariants: AnimationProps['variants'] = {
 
   exit: {
     opacity: 0,
-    y: 20,
+    y: -10,
     transition: {
       ease,
     },
