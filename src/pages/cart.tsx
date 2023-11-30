@@ -2,6 +2,7 @@ import CartItem from '@/components/cart/cart-item'
 import PageWrapper from '@/components/layout/page-wrapper'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 import { emptyCart } from '@/store/cart-slice'
+import { getCartQuantity, getCartTotal } from '@/utils/cart'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -11,9 +12,8 @@ export default function Cart() {
   const cart = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
 
-  const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
-
-  const quantity = cart.reduce((acc, curr) => acc + curr.quantity, 0)
+  const total = getCartTotal(cart)
+  const quantity = getCartQuantity(cart)
 
   useEffect(() => setHasMounted(true), []) // necessary due to checking localStorage
 

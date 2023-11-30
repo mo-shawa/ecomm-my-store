@@ -1,33 +1,16 @@
-import { useAppDispatch, useAppSelector } from '@/hooks/redux'
-import { setInitialProducts, addPageOfProducts } from '@/store/products-slice'
-import { useEffect } from 'react'
-import { AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useAppSelector } from '@/hooks/redux'
+import { AnimatePresence } from 'framer-motion'
 import ProductModal from '@/components/product/product-modal'
 import ProductList from '@/components/product/product-list'
 import SkeletonList from '@/components/layout/loader'
 import PageWrapper from '@/components/layout/page-wrapper'
+import { useGetInitialProductsQuery } from '@/services/product'
 
 export default function Home() {
-  const products = useAppSelector((state) => state.products)
-  const dispatch = useAppDispatch()
   const selectedProduct = useAppSelector((state) => state.selectedProduct)
+  const { data, isFetching } = useGetInitialProductsQuery()
 
-  // const { scrollYProgress } = useScroll()
-
-  // useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-  //   if (latest >= 0.8) {
-  //     fetchProducts()
-  //   }
-  // })
-
-  async function fetchProducts() {
-    const response = await fetch('https://fakestoreapi.com/products')
-    const data = await response.json()
-    dispatch(setInitialProducts(data))
-  }
-  useEffect(() => {
-    fetchProducts()
-  }, [])
+  const products = data ?? []
 
   return (
     <PageWrapper>
@@ -43,7 +26,7 @@ export default function Home() {
         initial={false}
         mode='wait'
       >
-        {products.length ? (
+        {!isFetching ? (
           <ProductList
             key='product-list'
             products={products}
