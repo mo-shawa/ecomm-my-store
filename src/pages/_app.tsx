@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { store } from '@/store/store'
 import { Provider } from 'react-redux'
 import Navbar from '@/components/layout/navbar'
-import { AnimatePresence, motion, useScroll } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { pageTransitionVariants } from '@/utils/framer'
 import { useRouter } from 'next/router'
 import { Toaster } from 'react-hot-toast'
@@ -12,7 +12,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   const { scrollYProgress } = useScroll()
-  const scaleX = scrollYProgress
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
 
   return (
     <Provider store={store}>

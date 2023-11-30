@@ -56,8 +56,8 @@ export default function ProductModal({ selected }: Props) {
             // key={selected.id}
             src={selected.image}
             alt={selected.title}
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             className='aspect-square object-contain'
           />
         </motion.div>
@@ -65,18 +65,20 @@ export default function ProductModal({ selected }: Props) {
           layoutId={`title-${selected.id}`}
           layout='position'
           key={`title-${selected.id}`}
-          className='px-4 text-lg font-semibold'
+          className='px-4 text-lg text-center font-semibold'
         >
           {selected.title}
         </motion.h2>
-        <motion.p
-          variants={productDescriptionVariants}
-          initial='initial'
-          animate='animate'
-          className='px-4 tracking-tight text-sm sm:text-base font-light'
-        >
-          {selected.description}
-        </motion.p>
+        <motion.div className='px-4 overflow-auto sm:overflow-visible max-h-[6rem] sm:max-h-full tracking-tight text-sm sm:text-base font-light'>
+          <motion.p
+            variants={productDescriptionVariants}
+            initial='initial'
+            animate='animate'
+            className=''
+          >
+            {selected.description}
+          </motion.p>
+        </motion.div>
         <motion.div
           initial='initial'
           animate='animate'

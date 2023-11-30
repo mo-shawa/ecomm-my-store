@@ -21,14 +21,14 @@ export default function Product({ product }: Props) {
       whileHover={{
         scale: 1.02,
       }}
-      className='pt-4 border w-full max-w-[25rem] shadow flex flex-col items-center bg-white rounded-xl gap-4 transition-shadow hover:shadow-xl cursor-pointer overflow-hidden duration-700'
+      className='pt-4 border w-full shadow flex flex-col items-center bg-white rounded-xl gap-4 transition-shadow hover:shadow-xl cursor-pointer overflow-hidden duration-700 col-span-1'
       transition={{
         ease,
         duration: 0.8,
       }}
     >
       <motion.div
-        className='flex-1'
+        className='flex-1 h-1/2'
         key={`image-${product.id}`}
         layoutId={`image-${product.id}`}
         layout='position'
@@ -36,19 +36,21 @@ export default function Product({ product }: Props) {
         <Image
           src={product.image}
           alt={product.title}
-          width={200}
-          height={200}
+          width={150}
+          height={150}
           className='aspect-square object-contain'
         />
       </motion.div>
-      <motion.h2
-        layoutId={`title-${product.id}`}
-        key={`title-${product.id}`}
-        layout='position'
-        className='px-4 text-lg font-semibold'
-      >
-        {product.title}
-      </motion.h2>
+      <motion.div className='w-full'>
+        <motion.h2
+          layoutId={`title-${product.id}`}
+          key={`title-${product.id}`}
+          layout='position'
+          className='px-4 text-lg text-center font-semibold line-clamp-2'
+        >
+          {product.title}
+        </motion.h2>
+      </motion.div>
       <div className='p-4 flex justify-between items-center bg-slate-50 border-t w-full '>
         <motion.p
           layout='position'
