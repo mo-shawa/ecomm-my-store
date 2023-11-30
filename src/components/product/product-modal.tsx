@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useAppDispatch } from '@/hooks/redux'
 import { setSelectedProduct } from '@/store/selected-product-slice'
-import AddToCartButton from '../add-to-cart-button'
+import AddToCartButton from './add-to-cart-button'
 import StarRating from './star-rating'
 
 type Props = {

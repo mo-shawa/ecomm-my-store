@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useAppDispatch } from '@/hooks/redux'
 import { motion } from 'framer-motion'
 import { ease, productCardVariants } from '@/utils/framer'
-import AddToCartButton from '../add-to-cart-button'
+import AddToCartButton from './add-to-cart-button'
 import { setSelectedProduct } from '@/store/selected-product-slice'
 
 type Props = {

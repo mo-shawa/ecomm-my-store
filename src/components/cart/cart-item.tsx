@@ -41,15 +41,6 @@ export default function CartItem({ cartItem }: Props) {
         </div>
         <div className='flex flex-col gap-2'>
           <h3>{cartItem.title}</h3>
-          <p className='text-sm text-slate-500'>
-            Item total:{' '}
-            <span className='font-bold'>
-              {(cartItem.quantity * cartItem.price).toLocaleString('en-ca', {
-                style: 'currency',
-                currency: 'CAD',
-              })}
-            </span>
-          </p>
           <div className='flex border w-min rounded-md bg-white shadow'>
             <motion.button
               initial={{ opacity: 0 }}
@@ -71,6 +62,15 @@ export default function CartItem({ cartItem }: Props) {
               +
             </motion.button>
           </div>
+          <p className='text-sm text-slate-500'>
+            Item total:{' '}
+            <span className='font-bold'>
+              {(cartItem.quantity * cartItem.price).toLocaleString('en-ca', {
+                style: 'currency',
+                currency: 'CAD',
+              })}
+            </span>
+          </p>
         </div>
       </div>
       {isHovered && (

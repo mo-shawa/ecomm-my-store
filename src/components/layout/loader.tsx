@@ -1,6 +1,6 @@
 import { productContainerVariants } from '@/utils/framer'
 import { motion } from 'framer-motion'
-import ProductSkeleton from './product/product-skeleton'
+import ProductSkeleton from '../product/product-skeleton'
 
 export default function SkeletonList() {
   return (

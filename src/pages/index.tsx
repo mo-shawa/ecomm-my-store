@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import ProductModal from '@/components/product/product-modal'
 import ProductList from '@/components/product/product-list'
-import SkeletonList from '@/components/loader'
+import SkeletonList from '@/components/layout/loader'
 import PageWrapper from '@/components/layout/page-wrapper'
 
 export default function Home() {
