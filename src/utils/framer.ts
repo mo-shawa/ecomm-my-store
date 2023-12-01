@@ -19,6 +19,32 @@ export const navItemVariants: AnimationProps['variants'] = {
   },
 }
 
+export const cartQuantityVariants: AnimationProps['variants'] = {
+  initial: {
+    scale: 0,
+    opacity: 0,
+  },
+  animate: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 0.5,
+      ease,
+    },
+  },
+
+  exit: {
+    scale: 0,
+    opacity: 0,
+    transition: {
+      delay: 0.5,
+      duration: 0.5,
+      ease,
+    },
+  },
+}
+
 export const pageTransitionVariants: AnimationProps['variants'] = {
   initial: {
     opacity: 0,

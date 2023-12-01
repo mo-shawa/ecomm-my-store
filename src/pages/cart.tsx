@@ -1,6 +1,7 @@
 import CartItem from '@/components/cart/cart-item'
 import PageWrapper from '@/components/layout/page-wrapper'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import useHasMounted from '@/hooks/useHasMounted'
 import { emptyCart } from '@/store/cart-slice'
 import { getCartQuantity, getCartTotal } from '@/utils/cart'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -8,14 +9,12 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function Cart() {
-  const [hasMounted, setHasMounted] = useState(false)
-  const cart = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
+  const hasMounted = useHasMounted()
 
+  const cart = useAppSelector((state) => state.cart)
   const total = getCartTotal(cart)
   const quantity = getCartQuantity(cart)
-
-  useEffect(() => setHasMounted(true), []) // necessary due to checking localStorage
 
   if (!hasMounted) return <></>
 
